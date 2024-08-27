@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Float, DateTime, Boolean, JSON, ForeignKey
+from sqlalchemy import BigInteger, Column, String, Integer, Float, DateTime, Boolean, JSON, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -75,3 +75,20 @@ class AggregatedBatteryData(Base):
     timestamp = Column(DateTime)
     region = Column(String(255))
     is_grouped = Column(Boolean)
+
+
+class DGAStatus(Base):
+    __tablename__ = 'app_monitoring_dgastatus'
+
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+    controller_name = Column(String(255), nullable=False)
+    dga_status = Column(String(3), nullable=False)
+    timestamp = Column(DateTime(6), nullable=False)
+
+class DGAStatusHistory(Base):
+    __tablename__ = 'app_monitoring_dgastatushistory'
+
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+    controller_name = Column(String(255), nullable=False, index=True)
+    dga_status = Column(String(3), nullable=False)
+    timestamp = Column(DateTime(6), nullable=False)
